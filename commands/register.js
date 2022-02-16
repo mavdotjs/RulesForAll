@@ -21,8 +21,7 @@ module.exports = {
             db.server.create({
                 data: {
                     id: guildid,
-                    rules: {
-                    }
+                    ruleChannelId: interaction.options.getChannel('channel').id
                 }
             }).catch(e => {
                 switch(e.code) {
