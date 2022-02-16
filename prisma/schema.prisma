@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Rule {
+  id       Int    @id @default(autoincrement())
+  Number   Int
+  server   Server @relation(fields: [serverId], references: [id])
+  serverId Int
+}
+
+model Server {
+  id    Int    @id
+  rules Rule[]
+}
