@@ -8,12 +8,12 @@ const client = new Discord.Client({
 const handler = new OPCommands(client, {
     commandsDir: "commands", // your commands' directory
     eventsDir: "events", // your events' directory
-    testGuildID: "GUILD_ID", // the ID of the Test Server
+    testGuildID: "935949267904921710", // the ID of the Test Server
     testMode: false, // should OPCommands start in test mode (guild only)?
     logs: true, // should OPCommands log its actions?
     notifyOwner: true // should OPCommands notify the bot owner when the bot goes online?
 });
-handler.setBotOwner("OWNER_ID"); // sets the bot's owner(s), can be an array or a string
+handler.setBotOwner(["688874082523152483", "290545409481244672"]); // sets the bot's owner(s), can be an array or a string
 handler.setMessages({
     ownerOnly: (interaction) => interaction.reply("Missing **Bot Owner** permission."),
     permissions: (interaction, perms) => interaction.reply(`You are missing the following permissions: **${perms.join(", ")}**`),
