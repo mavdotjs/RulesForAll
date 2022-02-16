@@ -13,11 +13,14 @@ datasource db {
 model Rule {
   id       Int    @id @default(autoincrement())
   Number   Int
+  Title    String
+  Info     String
   server   Server @relation(fields: [serverId], references: [id])
-  serverId Int
+  serverId String
 }
 
 model Server {
-  id    Int    @id
-  rules Rule[]
+  id            String @id
+  ruleChannelId String
+  rules         Rule[]
 }
