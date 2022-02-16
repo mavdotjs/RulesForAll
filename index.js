@@ -14,7 +14,7 @@ const handler = new OPCommands(client, {
     logs: true, // should OPCommands log its actions?
     notifyOwner: false // should OPCommands notify the bot owner when the bot goes online?
 });
-handler.addBotOwner("688874082523152483"); // sets the bot's owner(s), can be an array or a string
+handler.setBotOwner("688874082523152483"); // sets the bot's owner(s), can be an array or a string
 handler.addBotOwner("290545409481244672");
 handler.setMessages({
     ownerOnly: (interaction) => interaction.reply("Missing **Bot Owner** permission."),
