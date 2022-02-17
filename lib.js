@@ -10,7 +10,7 @@ const { Client, MessageEmbed } = require('discord.js');
  * @param {String} svid
  * @param {Client} client
  */
-module.exports.editrules = function(svid, client) {
+module.exports.editrules = function(svid, client, disc=false) {
     (async()=>{
         const server = await db.server.findFirst({
             where: {
@@ -20,6 +20,10 @@ module.exports.editrules = function(svid, client) {
                 rules: true,
                 ruleChannelId: true,
                 ruleEmbedMessage: true
+            }
+        }).then(()=>{
+            if(disc) {
+                db.$disconnect();
             }
         })
         const guild = client.guilds.cache.get(svid)
