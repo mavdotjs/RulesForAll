@@ -6,7 +6,7 @@ const db = require('#db');
 const lib = require('#lib')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
-    name: 'addrule',
+    name: 'removerule',
     description: 'Removes a rule',
     options: [
         {
