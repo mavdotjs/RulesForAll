@@ -36,7 +36,7 @@ module.exports.editrules = function(svid, client) {
                     },
                     ...server.rules.map(r=>{
                         return {
-                            name: `Rule ${r.Number}.${r.Title?'':` ${r.Title}`}`,
+                            name: `Rule ${r.Number}.${r.Title?` ${r.Title}`:''}`,
                             value: r.Info
                         }
                     })
