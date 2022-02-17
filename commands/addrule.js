@@ -37,7 +37,7 @@ module.exports = {
             let ok = false
             if(!await db.server.findFirst({ where: { id: guildid } })) return interaction.reply(`This server is not registered!`)
             const guildata = await db.server.findFirst({ where: { id: guildid }, select: { rules: true } })
-
+            await interaction.deferReply()
             db.rule.create({
                 data: {
                     Number: guildata?.rules?.length + 1,

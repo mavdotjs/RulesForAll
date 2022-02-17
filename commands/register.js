@@ -23,6 +23,7 @@ module.exports = {
         (async() => {
             const guildid = interaction.guildId;
             if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
+            await interaction.deferReply();
             let ok = false
             db.server.create({
                 data: {
