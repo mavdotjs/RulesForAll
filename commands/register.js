@@ -1,4 +1,5 @@
 const db = require('#db');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "register",
     description: "registers this server in the RulesForAll system",
@@ -21,7 +22,15 @@ module.exports = {
             db.server.create({
                 data: {
                     id: guildid,
-                    ruleChannelId: interaction.options.getChannel('channel').id
+                    ruleChannelId: interaction.options.getChannel('channel').id,
+                    ruleEmbedMessage: (interaction.options.getChannel('channel').send({
+                        embeds: [
+                            new MessageEmbed({
+                                title: "Rules set up!",
+                                description: "There currently are no rules, go anarchy mode i guess"
+                            })
+                        ]
+                    })).id
                 }
             }).catch(e => {
                 switch(e.code) {
@@ -36,6 +45,7 @@ module.exports = {
                     interaction.reply('Done!')
                 }
             })
+
         })().catch(e => {throw e})
     }
 }
