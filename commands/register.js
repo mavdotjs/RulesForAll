@@ -1,3 +1,7 @@
+const { PrismaClient } = require('@prisma/client');
+/**
+ * @type {PrismaClient}
+ */
 const db = require('#db');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
@@ -18,12 +22,13 @@ module.exports = {
     run: (client, interaction) => {
         (async() => {
             const guildid = interaction.guildId;
+            if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
             let ok = false
             db.server.create({
                 data: {
                     id: guildid,
                     ruleChannelId: interaction.options.getChannel('channel').id,
-                    ruleEmbedMessage: (interaction.options.getChannel('channel').send({
+                    ruleEmbedMessage: (await interaction.options.getChannel('channel').send({
                         embeds: [
                             new MessageEmbed({
                                 title: "Rules set up!",
@@ -33,13 +38,11 @@ module.exports = {
                     })).id
                 }
             }).catch(e => {
-                switch(e.code) {
-                    case "P2002":
-                        interaction.reply("This server has already registered!")
-                        break
-                }
+                interaction.reply("Bot encountered an error")
+                console.error(e)
                 ok = true
             }).finally(async ()=>{
+                await interaction.options.getChannel("channel").messages.cache.get((await db.server.findFirst({where: {id: guildid}})).ruleEmbedMessage).pin()
                 await db.$disconnect();
                 if(!ok) {
                     interaction.reply('Done!')

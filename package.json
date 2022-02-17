@@ -33,6 +33,7 @@
     "typescript": "^4.5.5"
   },
   "imports": {
-    "#db": "./db.js"
+    "#db": "./db.js",
+    "#lib": "./lib.js"
   }
 }
