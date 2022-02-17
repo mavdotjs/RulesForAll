@@ -7,18 +7,12 @@ const lib = require('#lib')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
     name: 'addrule',
-    description: 'Add a new rule',
+    description: 'Removes a rule',
     options: [
         {
-            type: 3,
-            name: "title",
-            description: "A title for your rule",
-            required: true
-        },
-        {
-            type: 3,
-            name: "description",
-            description: "A description for your rule",
+            type: 4,
+            name: "rule",
+            description: "Rule number to delete",
             required: true
         }
     ],
@@ -38,21 +32,20 @@ module.exports = {
             if(!await db.server.findFirst({ where: { id: guildid } })) return interaction.reply(`This server is not registered!`)
             const guildata = await db.server.findFirst({ where: { id: guildid }, select: { rules: true } })
             await interaction.deferReply()
-            db.rule.create({
-                data: {
-                    Number: guildata?.rules?.length + 1,
-                    Title: interaction.options.getString("title"),
-                    Info: interaction.options.getString("description"),
-                    serverId: guildid
+            if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.reply({ content: "That Rule number doesnt exist!", ephemeral: true })
+            db.rule.delete({
+                where: {
+                    Number: interaction.options.getInteger('rule'),
+                    serverId: guildid,
                 }
             }).catch(e=>{
-                interaction.editReply('command ran into an error')
+                interaction.reply('command ran into an error')
                 console.error(e)
                 ok = true
             }).finally(()=>{
                 db.$disconnect()
                 lib.editrules(guildid, client)
-                if(!ok) {interaction.editReply({ content: `Created Rule ${guildata?.rules?.length}!`, ephemeral: true }).catch(()=>{
+                if(!ok) {interaction.editReply({ content: 'Deleted!', ephemeral: true }).catch(()=>{
                     console.error("An error ocurred")
                 })}
             })

@@ -39,14 +39,14 @@ module.exports = {
                     })).id
                 }
             }).catch(e => {
-                interaction.reply("Bot encountered an error")
+                interaction.editReply("Bot encountered an error")
                 console.error(e)
                 ok = true
             }).finally(async ()=>{
                 await interaction.options.getChannel("channel").messages.cache.get((await db.server.findFirst({where: {id: guildid}})).ruleEmbedMessage).pin()
                 await db.$disconnect();
                 if(!ok) {
-                    interaction.reply({ content: 'Done!', ephemeral: true })
+                    interaction.editReply({ content: 'Done!', ephemeral: true })
                 }
             })
 
