@@ -30,10 +30,6 @@ module.exports.editrules = function(svid, client) {
             new MessageEmbed({
                 title: "Rules",
                 fields: [
-                    {
-                       name: "Rule 0.",
-                       value: "Follow the rules."
-                    },
                     ...server.rules.map(r=>{
                         return {
                             name: `Rule ${r.Number}.${r.Title?` ${r.Title}`:''}`,
