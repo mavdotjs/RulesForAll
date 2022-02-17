@@ -18,7 +18,7 @@ module.exports = {
     ],
     limits: {
         owner: false,
-        permissions: ["MANAGE_SERVER"]
+        permissions: ["SEND_MESSAGES"]
     },
     /**
      * 
