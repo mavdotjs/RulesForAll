@@ -1,7 +1,7 @@
 const lib = require('#lib')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
-    name: 'updates',
+    name: 'update',
     description: 'Update rules embed',
     limits: {
         owner: false,
