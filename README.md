@@ -1,1 +1,2 @@
 [![Discord Bots](https://top.gg/api/widget/943502294136291388.svg)](https://top.gg/bot/943502294136291388)
+https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
