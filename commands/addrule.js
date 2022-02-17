@@ -52,7 +52,7 @@ module.exports = {
             }).finally(()=>{
                 db.$disconnect()
                 lib.editrules(guildid, client)
-                if(!ok) {interaction.reply('Done!').catch(()=>{
+                if(!ok) {interaction.reply({ content: 'Done!', ephemeral: true }).catch(()=>{
                     console.error("An error ocurred")
                 })}
             })

@@ -45,7 +45,7 @@ module.exports = {
                 await interaction.options.getChannel("channel").messages.cache.get((await db.server.findFirst({where: {id: guildid}})).ruleEmbedMessage).pin()
                 await db.$disconnect();
                 if(!ok) {
-                    interaction.reply('Done!')
+                    interaction.reply({ content: 'Done!', ephemeral: true })
                 }
             })
 
