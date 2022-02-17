@@ -12,11 +12,12 @@ datasource db {
 
 model Rule {
   id       Int    @id @default(autoincrement())
-  Number   Int
-  Title    String
-  Info     String
+  number   Int
+  title    String
+  info     String
   server   Server @relation(fields: [serverId], references: [id])
   serverId String
+  @@unique([serverId, number])
 }
 
 model Server {
