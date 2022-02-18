@@ -40,9 +40,9 @@ module.exports = {
             await interaction.deferReply()
             db.rule.create({
                 data: {
-                    Number: guildata?.rules?.length + 1,
-                    Title: interaction.options.getString("title"),
-                    Info: interaction.options.getString("description"),
+                    number: guildata?.rules?.length + 1,
+                    title: interaction.options.getString("title"),
+                    info: interaction.options.getString("description"),
                     serverId: guildid
                 }
             }).catch(e=>{
@@ -52,7 +52,7 @@ module.exports = {
             }).finally(()=>{
                 db.$disconnect()
                 lib.editrules(guildid, client)
-                if(!ok) {interaction.editReply({ content: `Created Rule ${guildata?.rules?.length}!`, ephemeral: true }).catch(()=>{
+                if(!ok) {interaction.editReply({ content: `Created Rule ${guildata?.rules?.length+1}!`, ephemeral: true }).catch(()=>{
                     console.error("An error ocurred")
                 })}
             })

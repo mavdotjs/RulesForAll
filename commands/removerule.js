@@ -4,7 +4,8 @@ const { PrismaClient } = require('@prisma/client');
  */
 const db = require('#db');
 const lib = require('#lib')
-const { Client, CommandInteraction } = require('discord.js')
+const { Client, CommandInteraction } = require('discord.js');
+const { AsyncLocalStorage } = require('async_hooks');
 module.exports = {
     name: 'removerule',
     description: 'Removes a rule',
@@ -35,15 +36,26 @@ module.exports = {
             if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.reply({ content: "That Rule number doesnt exist!", ephemeral: true })
             db.rule.delete({
                 where: {
-                    Number: interaction.options.getInteger('rule'),
+                    number: interaction.options.getInteger('rule'),
                     serverId: guildid,
                 }
             }).catch(e=>{
                 interaction.reply('command ran into an error')
                 console.error(e)
                 ok = true
-            }).finally(()=>{
+            }).finally(async()=>{
                 db.$disconnect()
+                await lib.update(db.rule, {
+                    where: {
+                        number: {
+                            gt: interaction.options.getInteger('rules')
+                        }   
+                    }
+                }, (rule, id)=>{
+                    return {
+                        number: rule.number - 1
+                    }
+                })
                 lib.editrules(guildid, client)
                 if(!ok) {interaction.editReply({ content: 'Deleted!', ephemeral: true }).catch(()=>{
                     console.error("An error ocurred")

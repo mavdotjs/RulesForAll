@@ -34,7 +34,7 @@ module.exports = {
             if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.reply({ content: "That Rule number doesnt exist!", ephemeral: true })
             db.rule.findFirst({
                 where: {
-                    Number: interaction.options.getInteger('rule'),
+                    number: interaction.options.getInteger('rule'),
                     serverId: guildid,
                 }
             }).catch(e=>{
@@ -46,8 +46,8 @@ module.exports = {
                 await interaction.deferReply(); // cuz y not
                 await interaction.editReply({ embeds: [
                     new MessageEmbed({
-                        title: `Rule ${d.Number}.${d.Title?` ${d.Title}`:''}`,
-                        description: d.Info,
+                        title: `Rule ${d.number}.${d.title?` ${d.title}`:''}`,
+                        description: d.itnfo,
                     })
                 ] })
             })
