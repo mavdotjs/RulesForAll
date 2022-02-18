@@ -47,7 +47,7 @@ module.exports = {
                 await interaction.editReply({ embeds: [
                     new MessageEmbed({
                         title: `Rule ${d.number}.${d.title?` ${d.title}`:''}`,
-                        description: d.itnfo,
+                        description: d.info,
                     })
                 ] })
             })
