@@ -30,17 +30,16 @@ module.exports = {
         (async() => {
             const guildid = interaction.guildId;
             let ok = false
-            if(!await db.server.findFirst({ where: { id: guildid } })) return interaction.reply(`This server is not registered!`)
+            if(!await db.server.findFirst({ where: { id: guildid } })) return await interaction.reply('This server is not registered!');
             const guildata = await db.server.findFirst({ where: { id: guildid }, select: { rules: true } })
             await interaction.deferReply()
-            if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.reply({ content: "That Rule number doesnt exist!", ephemeral: true })
+            if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.editReply({ content: "That Rule number doesnt exist!", ephemeral: true })
             db.rule.delete({
                 where: {
-                    number: interaction.options.getInteger('rule'),
-                    serverId: guildid,
+                    serverId_number: { serverId: guildid, number: interaction.options.getInteger('rule') },
                 }
             }).catch(e=>{
-                interaction.reply('command ran into an error')
+                interaction.editReply('command ran into an error')
                 console.error(e)
                 ok = true
             }).finally(async()=>{
@@ -48,14 +47,14 @@ module.exports = {
                 await lib.update(db.rule, {
                     where: {
                         number: {
-                            gt: interaction.options.getInteger('rules')
+                            gt: interaction.options.getInteger('rule')
                         }   
                     }
                 }, (rule, id)=>{
                     return {
                         number: rule.number - 1
                     }
-                })
+                }, "id")
                 lib.editrules(guildid, client)
                 if(!ok) {interaction.editReply({ content: 'Deleted!', ephemeral: true }).catch(()=>{
                     console.error("An error ocurred")

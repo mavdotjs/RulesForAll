@@ -22,7 +22,6 @@ module.exports.editrules = function(svid, client, disc=false) {
                 ruleEmbedMessage: true
             }
         })
-        console.log(server);
         if(disc) {
             db.$disconnect();
         }
@@ -51,7 +50,8 @@ module.exports.update = async function update(model, data, updator, idname="id")
     if(!model.findMany) throw new Error("model parameter must be a Prisma Model");
     const things = await model.findMany(data);
     for(let thing in things) {
-        if(!thing[idname]) throw new Error("id parameter");
+        thing = things[thing]
+        if(!thing[idname]) throw new Error("id parameter invalid");
         let newthing = updator(thing, thing[idname]);
         if(!newthing) console.log('Updator returned none')
         let payload = {
@@ -59,7 +59,7 @@ module.exports.update = async function update(model, data, updator, idname="id")
 
             },
             data: {
-                newthing
+                ...newthing
             }
         }
         payload.where[idname] = thing[idname]
