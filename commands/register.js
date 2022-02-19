@@ -6,12 +6,18 @@ const db = require('#db');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "register",
-    description: "registers this server in the RulesForAll system",
+    description: "registers this server in the RulesForAll system.",
     options: [
         {
             type: 7,
             name: "channel",
-            description: "The channel rules go in",
+            description: "The channel rules go in.",
+            required: true
+        },
+        {
+            type: 8,
+            name: "role",
+            description: "The role users get when they accept the rules.",
             required: true
         }
     ],

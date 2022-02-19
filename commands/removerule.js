@@ -8,12 +8,12 @@ const { Client, CommandInteraction } = require('discord.js');
 const { AsyncLocalStorage } = require('async_hooks');
 module.exports = {
     name: 'removerule',
-    description: 'Removes a rule',
+    description: 'Removes a rule.',
     options: [
         {
             type: 4,
             name: "rule",
-            description: "Rule number to delete",
+            description: "Rule number to delete.",
             required: true
         }
     ],

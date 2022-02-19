@@ -24,5 +24,7 @@ model Server {
   id            String @id
   ruleChannelId String
   ruleEmbedMessage String
+  ruleAcceptMessage String
+  ruleAcceptRole String
   rules         Rule[]
 }

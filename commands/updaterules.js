@@ -2,7 +2,7 @@ const lib = require('#lib')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
     name: 'update',
-    description: 'Update rules embed',
+    description: 'Update rules embed.',
     limits: {
         owner: false,
         permissions: ["MANAGE_SERVER"]
