@@ -18,6 +18,7 @@ module.exports = {
         (async()=>{
             if(!message.author.bot) return;
             if(!(message.author.id === client.user.id)) return;
+            if(!message.inGuild()) return
             const guildId = message.guildId;
             await new Promise(r => setTimeout(r, 2000))
             const server = await db.server.findFirst({ where: { id: guildId } })
