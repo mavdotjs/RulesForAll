@@ -25,7 +25,7 @@ handler.setMessages({
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot && message.type === 'CHANNEL_PINNED_MESSAGE') {
-      message.delete();
+      message.delete().catch(e=>null);
     }
 })
 
