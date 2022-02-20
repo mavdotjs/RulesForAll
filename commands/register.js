@@ -3,7 +3,9 @@ const { PrismaClient } = require('@prisma/client');
  * @type {PrismaClient}
  */
 const db = require('#db');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Client, CommandInteraction } = require('discord.js');
+
+
 module.exports = {
     name: "register",
     description: "registers this server in the RulesForAll system.",
@@ -25,9 +27,16 @@ module.exports = {
         owner: false,
         permissions: ["MANAGE_SERVER"]
     },
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+    */
     run: (client, interaction) => {
         (async() => {
             const guildid = interaction.guildId;
+            const role = interaction.options.getRole('role');
+            if(!role.editable) return interaction.reply(`The Bot cannot apply users the <@!${role.id}> role, please make the RulesForAll role higher than it for this to work`)
             if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
             await interaction.deferReply();
             let ok = false
@@ -42,17 +51,25 @@ module.exports = {
                                 description: "There currently are no rules, go anarchy mode i guess"
                             })
                         ]
-                    })).id
+                    })).id,
+                    ruleAcceptMessage: (await interaction.options.getChannel('channel').send({
+                        embeds: [
+                            new MessageEmbed({
+                                title: "Accept the rules",
+                                description: "React with :white_check_mark: to accept the rules"
+                            })
+                        ]
+                    })).id,
+                    ruleAcceptRole: role.id
                 }
             }).catch(e => {
                 interaction.editReply("Bot encountered an error")
                 console.error(e)
                 ok = true
             }).finally(async ()=>{
-                await interaction.options.getChannel("channel").messages.cache.get((await db.server.findFirst({where: {id: guildid}})).ruleEmbedMessage).pin()
                 await db.$disconnect();
                 if(!ok) {
-                    interaction.editReply({ content: 'Done!', ephemeral: true })
+                    interaction.editReply({ content: 'Done!', ephemeral: true });
                 }
             })
 

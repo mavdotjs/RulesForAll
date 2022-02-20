@@ -23,4 +23,10 @@ handler.setMessages({
     // notifyOwnerMessage: (owner) => owner.send("I'm online!")
 }); // sets the limit messages, not required
 
+client.on('messageCreate', async (message) => {
+    if (message.author.bot && message.type === 'CHANNEL_PINNED_MESSAGE') {
+      message.delete();
+    }
+})
+
 client.login(process.env.BOT_TOKEN);
