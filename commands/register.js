@@ -8,7 +8,7 @@ const { MessageEmbed, Client, CommandInteraction } = require('discord.js');
 
 module.exports = {
     name: "register",
-    description: "registers this server in the RulesForAll system.",
+    description: "Registers the current guild, must be ran first for any other command to work",
     options: [
         {
             type: 7,

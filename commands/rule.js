@@ -7,7 +7,7 @@ const lib = require('#lib')
 const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'rule',
-    description: 'View a rule.',
+    description: 'Shows a rule by its number',
     options: [
         {
             type: 4,

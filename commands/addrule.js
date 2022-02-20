@@ -7,7 +7,7 @@ const lib = require('#lib')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
     name: 'addrule',
-    description: 'Add a new rule.',
+    description: 'Adds a new rule',
     options: [
         {
             type: 3,
