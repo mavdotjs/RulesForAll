@@ -4,6 +4,7 @@ const { PrismaClient } = require('@prisma/client');
  * @type {PrismaClient}
  */
 const db = require('#db');
+
 module.exports = {
     name: "messageReactionAdd",
     settings: {
@@ -16,15 +17,14 @@ module.exports = {
      * @param {User} user
      */
     run: (client, reaction, user) => {
-        if(reaction.me) return
+        if(user.bot) return;
         const guildId = reaction.message.guildId;
         (async() => {
             // Check if the reaction is the accept emoji
-            if(!(reaction.emoji.name === "✅")) return;
-
+            if(!(reaction.emoji.name === "✅")) return await reaction.users.remove(user.id);
             // Fetch server and check if it exists (aka is registered)
             const server = await db.server.findFirst({where: {id: guildId}});
-            if(!server) return;
+            if(!server) return await reaction.users.remove(user.id);
 
             // Server is registered and emoji is correct, there should be no errors past this point
 
@@ -35,7 +35,7 @@ module.exports = {
             member.roles.add(role, "User verified, added rule accept role");
 
             // Remove reaction
-            await reaction.remove()
+            await reaction.users.remove(user.id)
         })()
     }
 }
