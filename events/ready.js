@@ -24,8 +24,5 @@ module.exports = {
             client.user.setPresence({ activities: [activity], status: 'idle' });
         }
         setInterval(update, 16000)
-        client.guilds.cache.forEach(guild => {
-            console.log(`${guild.name} | ${guild.id}`);
-        })
     }
 }
