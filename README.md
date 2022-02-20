@@ -1,2 +1,10 @@
+Simple rules bot for discord servers, easy setup
 [![Discord Bots](https://top.gg/api/widget/943502294136291388.svg)](https://top.gg/bot/943502294136291388)
-https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
+
+
+all commands:
+/register - Registers the current guild, must be ran first for any other command to work
+/addrule - Adds a new rule
+/removerule - Removes a rule by its number
+/rule - Shows a rule by its number
+/update - Update rules embed, mainly used for debug purposes
