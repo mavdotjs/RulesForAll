@@ -1,4 +1,5 @@
 const lib = require('#lib')
+const db = require('#db')
 const { Client, CommandInteraction } = require('discord.js')
 module.exports = {
     name: 'update',
