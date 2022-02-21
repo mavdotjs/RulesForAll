@@ -24,7 +24,7 @@ module.exports = {
     ],
     limits: {
         owner: false,
-        permissions: ["MANAGE_SERVER"]
+        permissions: ["MANAGE_GUILD"]
     },
     /**
      * 
