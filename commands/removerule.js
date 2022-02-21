@@ -50,9 +50,9 @@ module.exports = {
                             gt: interaction.options.getInteger('rule')
                         }   
                     }
-                }, (rule, id)=>{
+                }, (rule, ruleindex ,id)=>{
                     return {
-                        number: rule.number - 1
+                        number: ruleindex + 1
                     }
                 }, "id")
                 lib.editrules(guildid, client)
