@@ -30,14 +30,15 @@ module.exports.editrules = function(svid, client, disc=false) {
         const message = await channel.messages.fetch(server.ruleEmbedMessage)
         message.edit({ embeds: [
             new MessageEmbed({
-                title: "Rules",
+                title: `Rules`,
+                description: server.rules.length?"":"There currently are no rules, go anarchy mode i guess",
                 fields: [
-                    ...server.rules.map(r=>{
+                    ...(server.rules.length?server.rules.map(r=>{
                         return {
                             name: `Rule ${r.number}.${r.title?` ${r.title}`:''}`,
                             value: r.info
                         }
-                    })
+                    }):[])
                 ]
             })
         ]})
