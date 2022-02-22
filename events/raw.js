@@ -13,7 +13,7 @@ module.exports = {
      */
     run: (client, event) => {
         (async() => {
-            console.log(`Raw event: {${event.t}}`)
+            // console.log(`Raw event: {${event.t}}`)
 
             if(event.t === "MESSAGE_CREATE") {
                 const { d: data } = event;
