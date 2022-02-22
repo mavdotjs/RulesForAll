@@ -5,6 +5,12 @@ const { PrismaClient } = require('@prisma/client');
  */
 const db = require('#db');
 const { wait } = require("../lib");
+async function remove(user) {
+    reaction.users.remove(user.id).catch(async e => {
+        await wait(2000)
+        reaction.users.remove(user.id).catch()
+    });
+}
 
 module.exports = {
     name: "messageReactionAdd",
@@ -21,12 +27,11 @@ module.exports = {
         if(user.bot) return;
         const guildId = reaction.message.guildId;
         (async() => {
-            await wait(2000)
             // Check if the reaction is the accept emoji
-            if(!(reaction.emoji.name === "✅")) return reaction.users.remove(user.id).catch(e=>0);
+            if(!(reaction.emoji.name === "✅")) return await remove()
             // Fetch server and check if it exists (aka is registered)
             const server = await db.server.findFirst({where: {id: guildId}});
-            if(!server) return await reaction.users.remove(user.id).catch(e=>0);
+            if(!server) return await remove()
 
             // Server is registered and emoji is correct, there should be no errors past this point
 
@@ -37,7 +42,7 @@ module.exports = {
             member.roles.add(role, "User verified, added rule accept role").catch(e=>0);
 
             // Remove reaction
-            reaction.users.remove(user.id).catch(e=>0/* ignore */);
+            await remove()
         })()
     }
 }
