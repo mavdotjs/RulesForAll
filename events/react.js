@@ -21,7 +21,7 @@ module.exports = {
         const guildId = reaction.message.guildId;
         (async() => {
             // Check if the reaction is the accept emoji
-            if(!(reaction.emoji.name === "✅")) return await reaction.users.remove(user.id);
+            if(!(reaction.emoji.name === "✅")) return reaction.users.remove(user.id).catch(e=>0);
             // Fetch server and check if it exists (aka is registered)
             const server = await db.server.findFirst({where: {id: guildId}});
             if(!server) return await reaction.users.remove(user.id);
