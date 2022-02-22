@@ -24,7 +24,7 @@ module.exports = {
             if(!(reaction.emoji.name === "✅")) return reaction.users.remove(user.id).catch(e=>0);
             // Fetch server and check if it exists (aka is registered)
             const server = await db.server.findFirst({where: {id: guildId}});
-            if(!server) return await reaction.users.remove(user.id);
+            if(!server) return await reaction.users.remove(user.id).catch(e=>0);
 
             // Server is registered and emoji is correct, there should be no errors past this point
 
@@ -32,7 +32,7 @@ module.exports = {
             const guild = await client.guilds.fetch(server.id);
             const role = await guild.roles.fetch(server.ruleAcceptRole);
             const member = await guild.members.fetch(user.id)
-            member.roles.add(role, "User verified, added rule accept role");
+            member.roles.add(role, "User verified, added rule accept role").catch(e=>0);
 
             // Remove reaction
             reaction.users.remove(user.id).catch(e=>0/* ignore */);
