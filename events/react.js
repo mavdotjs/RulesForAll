@@ -4,6 +4,7 @@ const { PrismaClient } = require('@prisma/client');
  * @type {PrismaClient}
  */
 const db = require('#db');
+const { wait } = require("../lib");
 
 module.exports = {
     name: "messageReactionAdd",
@@ -20,6 +21,7 @@ module.exports = {
         if(user.bot) return;
         const guildId = reaction.message.guildId;
         (async() => {
+            await wait(2000)
             // Check if the reaction is the accept emoji
             if(!(reaction.emoji.name === "✅")) return reaction.users.remove(user.id).catch(e=>0);
             // Fetch server and check if it exists (aka is registered)

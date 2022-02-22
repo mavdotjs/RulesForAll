@@ -67,3 +67,5 @@ module.exports.update = async function update(model, data, updator, idname="id")
         await model.update(payload)
     }
 };
+
+module.exports.wait = t => new Promise((rs, rj) => setTimeout(rs, t))
