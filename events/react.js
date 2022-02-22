@@ -35,7 +35,7 @@ module.exports = {
             member.roles.add(role, "User verified, added rule accept role");
 
             // Remove reaction
-            await reaction.users.remove(user.id)
+            reaction.users.remove(user.id).catch(e=>0/* ignore */);
         })()
     }
 }
