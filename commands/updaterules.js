@@ -19,7 +19,11 @@ module.exports = {
             await interaction.deferReply();
             lib.editrules(guildid, client, true)
             await lib.update(db.rule,
-            {},
+            {
+                where: {
+                    serverId: guildid
+                }
+            },
             (rule, ruleindex ,id)=>{
                 return {
                     number: ruleindex + 1
