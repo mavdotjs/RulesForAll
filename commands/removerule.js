@@ -35,7 +35,9 @@ module.exports = {
             if(interaction.options.getInteger('rule') > guildata.rules.length) return interaction.editReply({ content: "That Rule number doesnt exist!", ephemeral: true })
             db.rule.delete({
                 where: {
-                    serverId_number: { serverId: guildid, number: interaction.options.getInteger('rule') },
+                    unirule: {
+                        serverId: guildid,
+                        number: interaction.options.getInteger('rule') },
                 }
             }).catch(e=>{
                 interaction.editReply('command ran into an error')
@@ -51,9 +53,7 @@ module.exports = {
                     }
                 }, (rule, ruleindex ,id)=>{
                     return {
-                        number: {
-                            set: ruleindex + 1
-                        }
+                        number: ruleindex + 1
                     }
                 }, "id")
                 lib.editrules(guildid, client)

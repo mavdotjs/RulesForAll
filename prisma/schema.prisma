@@ -17,7 +17,7 @@ model Rule {
   info     String
   server   Server @relation(fields: [serverId], references: [id])
   serverId String
-  @@unique([serverId, number])
+  @@unique([serverId, number],  name: "unirule")
 }
 
 model Server {

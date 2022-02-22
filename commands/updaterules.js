@@ -26,9 +26,7 @@ module.exports = {
             },
             (rule, ruleindex ,id)=>{
                 return {
-                    number: {
-                        set: ruleindex + 1
-                    }
+                    number: ruleindex + 1
                 }
             }, "id")
             await interaction.editReply("Done!");
