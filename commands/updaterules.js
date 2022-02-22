@@ -17,19 +17,19 @@ module.exports = {
         (async() => {
             const guildid = interaction.guildId;
             await interaction.deferReply();
-            lib.editrules(guildid, client, true)
             await lib.update(db.rule,
-            {
-                where: {
-                    serverId: guildid
-                }
-            },
-            (rule, ruleindex ,id)=>{
-                return {
-                    number: ruleindex + 1
-                }
-            }, "id")
+                {
+                    where: {
+                        serverId: guildid
+                    }
+                },
+                (rule, ruleindex ,id)=>{
+                    return {
+                        number: parseInt(ruleindex) + 1
+                    }
+                }, "id")
             await interaction.editReply("Done!");
-        })()
+            lib.editrules(guildid, client, true)
+            })()
+        }
     }
-}

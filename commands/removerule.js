@@ -37,23 +37,22 @@ module.exports = {
                 where: {
                     unirule: {
                         serverId: guildid,
-                        number: interaction.options.getInteger('rule') },
+                        number: interaction.options.getInteger('rule')
+                    },
                 }
             }).catch(e=>{
                 interaction.editReply('command ran into an error')
-                console.error(e)
+                console.log(e)
                 ok = true
             }).finally(async()=>{
                 db.$disconnect()
                 await lib.update(db.rule, {
                     where: {
-                        number: {
-                            gt: interaction.options.getInteger('rule')
-                        }   
+                        serverId: guildid
                     }
                 }, (rule, ruleindex ,id)=>{
                     return {
-                        number: ruleindex + 1
+                        number: parseInt(ruleindex) + 1
                     }
                 }, "id")
                 lib.editrules(guildid, client)
