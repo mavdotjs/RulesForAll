@@ -12,7 +12,7 @@ const handler = new OPCommands(client, {
     testGuildID: "935949267904921710", // the ID of the Test Server
     testMode: false, // should OPCommands start in test mode (guild only)?
     logs: true, // should OPCommands log its actions?
-    notifyOwner: true // should OPCommands notify the bot owner(s) when the bot goes online?
+    notifyOwner: false // should OPCommands notify the bot owner(s) when the bot goes online?
 });
 handler.setBotOwner("688874082523152483"); // sets the bot's owner(s), can be an array or a string
 handler.addBotOwner("290545409481244672");
