@@ -52,8 +52,8 @@ module.exports.update = async function update(model, data, updator, idname="id")
     const things = await model.findMany(data);
     for(let thing in things) {
         const datathing = things[thing]
-        if(!thing[idname]) throw new Error("id parameter invalid");
-        let newthing = updator(datathing, thing, thing[idname]);
+        if(!datathing[idname]) throw new Error("id parameter invalid");
+        let newthing = updator(datathing, thing, datathing[idname]);
         if(!newthing) console.log('Updator returned none')
         let payload = {
             where: {
@@ -63,7 +63,7 @@ module.exports.update = async function update(model, data, updator, idname="id")
                 ...newthing
             }
         }
-        payload.where[idname] = thing[idname]
+        payload.where[idname] = datathing[idname]
         await model.update(payload)
     }
 };
