@@ -51,7 +51,9 @@ module.exports = {
                     }
                 }, (rule, ruleindex ,id)=>{
                     return {
-                        number: ruleindex + 1
+                        number: {
+                            set: ruleindex + 1
+                        }
                     }
                 }, "id")
                 lib.editrules(guildid, client)
