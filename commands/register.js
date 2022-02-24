@@ -44,6 +44,12 @@ module.exports = {
             const role = interaction.options.getRole('role');
             const channel = interaction.options.getChannel('channel');
             if(!interaction.guild.me.permissionsIn(channel.id).has("MANAGE_MESSAGES")) return interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
+            try {
+                // check if bot can send and delete in the channel
+                await (await channel.send("Test Message")).delete()
+            } catch {
+                return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
+            }
             if(!role.editable) return interaction.reply(`The Bot cannot apply users the <@!${role.id}> role, please make the RulesForAll role higher than it for this to work`)
             if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
             await interaction.deferReply();
