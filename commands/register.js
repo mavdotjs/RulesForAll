@@ -76,7 +76,7 @@ module.exports = {
                     })).id,
                     ruleAcceptRole: role.id
                 }
-            }).catch(e => {
+            }).catch(async e => {
                 await interaction.editReply("Bot encountered an error")
                 console.error(e)
                 ok = true
