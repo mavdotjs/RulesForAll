@@ -21,6 +21,12 @@ module.exports = {
             name: "role",
             description: "The role users get when they accept the rules.",
             required: true
+        },
+        {
+            type: 5,
+            name: "autorole",
+            description: "Autoroles all existing members",
+            required: false
         }
     ],
     limits: {
@@ -36,6 +42,8 @@ module.exports = {
         (async() => {
             const guildid = interaction.guildId;
             const role = interaction.options.getRole('role');
+            const channel = interaction.options.getChannel('channel');
+            if(!interaction.guild.me.permissionsIn(channel.id).has("MANAGE_MESSAGES")) return interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
             if(!role.editable) return interaction.reply(`The Bot cannot apply users the <@!${role.id}> role, please make the RulesForAll role higher than it for this to work`)
             if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
             await interaction.deferReply();
@@ -68,6 +76,10 @@ module.exports = {
                 ok = true
             }).finally(async ()=>{
                 await db.$disconnect();
+                const users = await interaction.guild.members.fetch();
+                for(let [id, user] of users) {
+                    user.roles.add(role, "Auto-Role").catch(e=>console.log(e))
+                }
                 if(!ok) {
                     interaction.editReply({ content: 'Done!', ephemeral: true });
                 }
