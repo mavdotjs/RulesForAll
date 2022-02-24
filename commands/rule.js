@@ -53,9 +53,9 @@ module.exports = {
             })
         })().catch(async e => {
             try {
-                interaction.reply("An error ocurred")
+                await interaction.reply("An error ocurred")
             } catch {
-                interaction.editReply("An error ocurred")
+                await interaction.editReply("An error ocurred")
             }
         })
     }
