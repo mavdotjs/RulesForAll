@@ -76,9 +76,11 @@ module.exports = {
                 ok = true
             }).finally(async ()=>{
                 await db.$disconnect();
-                const users = await interaction.guild.members.fetch();
-                for(let [id, user] of users) {
-                    user.roles.add(role, "Auto-Role").catch(e=>console.log(e))
+                if(interaction.options.getBoolean("autorole")) {
+                    const users = await interaction.guild.members.fetch();
+                    for(let [id, user] of users) {
+                        user.roles.add(role, "Auto-Role").catch(e=>console.log(e))
+                    }
                 }
                 if(!ok) {
                     interaction.editReply({ content: 'Done!', ephemeral: true });
