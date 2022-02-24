@@ -5,8 +5,7 @@ module.exports = {
     name: 'update',
     description: 'Update rules embed, mainly used for debug purposes',
     limits: {
-        owner: false,
-        permissions: ["MANAGE_GUILD"]
+        owner: true
     },
     /**
      * 
