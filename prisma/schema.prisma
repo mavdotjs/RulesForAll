@@ -17,14 +17,31 @@ model Rule {
   info     String
   server   Server @relation(fields: [serverId], references: [id])
   serverId String
-  @@unique([serverId, number],  name: "unirule")
+
+  @@unique([serverId, number], name: "unirule")
 }
 
 model Server {
-  id            String @id
-  ruleChannelId String
-  ruleEmbedMessage String
+  id                String   @id
+  ruleChannelId     String
+  ruleEmbedMessage  String
   ruleAcceptMessage String
-  ruleAcceptRole String
-  rules         Rule[]
+  ruleAcceptRole    String
+  rules             Rule[]
+  keys              Apikey[]
+}
+
+model Apikey {
+  id       Int     @id @default(autoincrement())
+  // Should be encrypted, warn maverick-dev-55 or someone else if not
+  key      String  @unique
+  server   Server  @relation(fields: [serverId], references: [id])
+  serverId String
+  user     Apiuser @relation(fields: [userId], references: [id])
+  userId   String
+}
+
+model Apiuser {
+  id   String   @id
+  keys Apikey[]
 }
