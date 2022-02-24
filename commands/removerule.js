@@ -60,6 +60,6 @@ module.exports = {
                     console.error("An error ocurred")
                 })}
             })
-        })()
+        })().catch(async e => interaction.reply("An error ocurred"))
     }
 }

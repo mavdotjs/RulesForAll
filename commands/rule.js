@@ -51,6 +51,6 @@ module.exports = {
                     })
                 ] })
             })
-        })()
+        })().catch(async e => interaction.reply("An error ocurred"))
     }
 }

@@ -87,6 +87,6 @@ module.exports = {
                 }
             })
 
-        })().catch(e => {throw e})
+        })().catch(async e => interaction.reply("An error ocurred"))
     }
 }

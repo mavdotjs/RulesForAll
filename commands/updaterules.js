@@ -30,6 +30,6 @@ module.exports = {
                 }, "id")
             await interaction.editReply("Done!");
             lib.editrules(guildid, client, true)
-            })()
-        }
+        })().catch(async e => interaction.reply("An error ocurred"))
     }
+}
