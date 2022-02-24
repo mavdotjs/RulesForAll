@@ -56,6 +56,12 @@ module.exports = {
                     console.error("An error ocurred")
                 })}
             })
-        })().catch(async e => interaction.reply("An error ocurred"))
+        })().catch(async e => {
+            try {
+                interaction.reply("An error ocurred")
+            } catch {
+                interaction.editReply("An error ocurred")
+            }
+        })
     }
 }
