@@ -57,6 +57,7 @@ module.exports = {
                 })}
             })
         })().catch(async e => {
+            console.log(e)
             try {
                 await interaction.reply("An error ocurred")
             } catch {
