@@ -25,7 +25,7 @@ module.exports = {
         {
             type: 5,
             name: "autorole",
-            description: "Autoroles all existing members",
+            description: "Autoroles all existing members, This is in beta and may not work in some situations",
             required: false
         }
     ],
@@ -77,7 +77,7 @@ module.exports = {
                     ruleAcceptRole: role.id
                 }
             }).catch(e => {
-                interaction.editReply("Bot encountered an error")
+                await interaction.editReply("Bot encountered an error")
                 console.error(e)
                 ok = true
             }).finally(async ()=>{
@@ -89,7 +89,7 @@ module.exports = {
                     }
                 }
                 if(!ok) {
-                    interaction.editReply({ content: 'Done!', ephemeral: true });
+                    await interaction.editReply({ content: 'Done!', ephemeral: true });
                 }
             })
 
