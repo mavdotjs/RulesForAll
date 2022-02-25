@@ -45,7 +45,16 @@ client.on("guildCreate", guild => {
     }
 
     let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
-    await channel.send(`Thanks for inviting me into this server!`);
+    await channel.send(`
+Thanks for inviting me into this server!
+To Prevent any errors during setup, make sure that I have the following permissions in your rules channel:
+Send Messages,
+Manage Messages,
+Add Reactions,
+Embed Links,
+Attach Files.
+As well as putting me above your verification role so i can add users.
+`);
 });
 
 client.login(process.env.BOT_TOKEN);
