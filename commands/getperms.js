@@ -23,7 +23,7 @@ module.exports = {
     run: (client, interaction) => {
         const channel = interaction.options.getChannel('channel');
         console.log(interaction.guild.me.permissionsIn(channel.id).toArray())
-        async(()=>{
+        (async()=>{
             await interaction.deferReply()
             await interaction.editReply("Check logs!")
         })()
