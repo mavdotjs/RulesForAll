@@ -44,7 +44,7 @@ module.exports = {
             const role = interaction.options.getRole('role');
             const channel = interaction.options.getChannel('channel');
             console.log(interaction.guild.me.permissionsIn(channel.id).toArray())
-            if(!interaction.guild.me.permissionsIn(channel.id).has("MANAGE_MESSAGES")) return interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
+            if(!interaction.guild.me.permissionsIn(channel.id).has("MANAGE_MESSAGES")) return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
             try {
                 // check if bot can send and delete in the channel
                 await (await channel.send("Test Message")).delete()
