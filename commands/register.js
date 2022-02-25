@@ -43,11 +43,33 @@ module.exports = {
             const guildid = interaction.guildId;
             const role = interaction.options.getRole('role');
             const channel = interaction.options.getChannel('channel');
-            console.log(interaction.guild.me.permissionsIn(channel.id).toArray())
-            if(!interaction.guild.me.permissionsIn(channel.id).has("MANAGE_MESSAGES")) return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
+            const neededperms = [
+                "SEND_MESSAGES",
+                "MANAGE_MESSAGES",
+                "ADD_REACTIONS",
+                "EMBED_LINKS",
+                "ATTACH_FILES"
+            ]
+            const currentperms = interaction.guild.me.permissionsIn(channel.id).toArray()
+            if(!neededperms.every(i => currentperms.includes(i))) return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the following permissions: 
+Send Messages,
+Manage Messages,
+Add Reactions,
+Embed Links,
+Attach Files
+in <#${channel.id}>`)
             try {
                 // check if bot can send and delete in the channel
-                await (await channel.send("Test Message")).delete()
+                await (await channel.send({
+                    content: "Test Message",
+                    embeds: [
+                        {
+                            title: "Test Embed",
+                            description: "Please ignore"
+                        }
+                    ],
+                    
+                })).delete()
             } catch {
                 return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
             }
@@ -67,7 +89,7 @@ module.exports = {
                             })
                         ]
                     })).id,
-                    ruleAcceptMessage: (channel.send({
+                    ruleAcceptMessage: (await channel.send({
                         embeds: [
                             new MessageEmbed({
                                 title: "Accept the rules",
