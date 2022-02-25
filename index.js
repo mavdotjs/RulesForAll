@@ -32,7 +32,7 @@ client.on('messageCreate', async (message) => {
     }
 })
 
-client.on("guildCreate", guild => {
+client.on("guildCreate", async guild => {
     let channelID;
     let channels = guild.channels.cache;
 
