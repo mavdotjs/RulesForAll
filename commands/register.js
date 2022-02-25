@@ -51,15 +51,15 @@ module.exports = {
             } catch {
                 return await interaction.reply(`The bot doesnt have access to manage or send messages in <#${channel.id}>, please add the permissions "Send Messages" and "Manage Messages" in <#${channel.id}>`)
             }
-            if(!role.editable) return interaction.reply(`The Bot cannot apply users the <@!${role.id}> role, please make the RulesForAll role higher than it for this to work`)
+            if(!role.editable) return await interaction.reply(`The Bot cannot apply users the <@!${role.id}> role, please make the RulesForAll role higher than it for this to work`)
             if(await db.server.findFirst({where: {id: guildid}})) return interaction.reply(`This server is already registered!`)
             await interaction.deferReply();
             let ok = false
             db.server.create({
                 data: {
                     id: guildid,
-                    ruleChannelId: interaction.options.getChannel('channel').id,
-                    ruleEmbedMessage: (await interaction.options.getChannel('channel').send({
+                    ruleChannelId: channel.id,
+                    ruleEmbedMessage: (await channel.send({
                         embeds: [
                             new MessageEmbed({
                                 title: "Rules set up!",
@@ -67,7 +67,7 @@ module.exports = {
                             })
                         ]
                     })).id,
-                    ruleAcceptMessage: (await interaction.options.getChannel('channel').send({
+                    ruleAcceptMessage: (channel.send({
                         embeds: [
                             new MessageEmbed({
                                 title: "Accept the rules",
