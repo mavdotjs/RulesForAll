@@ -1,4 +1,4 @@
-Simple rules bot for discord servers, easy setup
+Simple rules bot for discord servers, easy setup 
 [![Discord Bots](https://top.gg/api/widget/943502294136291388.svg)](https://top.gg/bot/943502294136291388)
 <a href="https://discordbotlist.com/bots/943502294136291388"><img src="https://discordbotlist.com/api/v1/bots/943502294136291388/widget"></a>
 
