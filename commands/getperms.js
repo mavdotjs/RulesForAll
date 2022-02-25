@@ -22,10 +22,17 @@ module.exports = {
     */
     run: (client, interaction) => {
         const channel = interaction.options.getChannel('channel');
-        console.log(interaction.guild.me.permissionsIn(channel.id).toArray())
-        (async()=>{
+        console.log(interaction.guild.me.permissionsIn(channel.id).toArray());
+        (async() => {
             await interaction.deferReply()
             await interaction.editReply("Check logs!")
-        })()
+        })().catch(async e => {
+            console.log(e)
+            try {
+                await interaction.reply("An error ocurred")
+            } catch {
+                await interaction.editReply("An error ocurred")
+            }
+        })
     }
 }
