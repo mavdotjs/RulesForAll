@@ -32,4 +32,20 @@ client.on('messageCreate', async (message) => {
     }
 })
 
+client.on("guildCreate", guild => {
+    let channelID;
+    let channels = guild.channels.cache;
+
+    channelLoop: for (let key in channels) {
+        let c = channels[key];
+        if (c[1].type === "text") {
+            channelID = c[0];
+            break channelLoop;
+        }
+    }
+
+    let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
+    await channel.send(`Thanks for inviting me into this server!`);
+});
+
 client.login(process.env.BOT_TOKEN);
