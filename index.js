@@ -14,8 +14,9 @@ const handler = new OPCommands(client, {
     logs: true, // should OPCommands log its actions?
     notifyOwner: false // should OPCommands notify the bot owner(s) when the bot goes online?
 });
-handler.setBotOwner("688874082523152483"); // sets the bot's owner(s), can be an array or a string
-handler.addBotOwner("290545409481244672");
+handler.setBotOwner("688874082523152483"); // maverickquill55
+handler.addBotOwner("290545409481244672"); // mcorange
+handler.addBotOwner("538009668035805195"); // patapizza
 handler.setMessages({
     ownerOnly: (interaction) => interaction.reply("Missing **Bot Owner** permission."),
     permissions: (interaction, perms) => interaction.reply(`You are missing the following permissions: **${perms.join(", ")}**`),
@@ -31,30 +32,5 @@ client.on('messageCreate', async (message) => {
       message.delete().catch(e=>null);
     }
 })
-
-client.on("guildCreate", async guild => {
-    let channelID;
-    let channels = guild.channels.cache;
-
-    channelLoop: for (let key in channels) {
-        let c = channels[key];
-        if (c[1].type === "text") {
-            channelID = c[0];
-            break channelLoop;
-        }
-    }
-
-    let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
-    await channel.send(`
-Thanks for inviting me into this server!
-To Prevent any errors during setup, make sure that I have the following permissions in your rules channel:
-Send Messages,
-Manage Messages,
-Add Reactions,
-Embed Links,
-Attach Files.
-As well as putting me above your verification role so i can add users.
-`);
-});
 
 client.login(process.env.BOT_TOKEN);
