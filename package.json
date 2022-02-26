@@ -22,9 +22,11 @@
     "@prisma/client": "^3.9.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
+    "express": "^4.17.3",
     "maverick-opcommands": "^2.4.2",
     "nodemon": "^2.0.15",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.18",

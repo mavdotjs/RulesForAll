@@ -28,11 +28,11 @@ module.exports = {
         const guildId = reaction.message.guildId;
         (async() => {
             // Check if the reaction is the accept emoji
-            if(!(reaction.emoji.name === "✅")) return await remove(reaction, user)
             // Fetch server and check if it exists (aka is registered)
             const server = await db.server.findFirst({where: {id: guildId}});
-            if(!server) return await remove(reaction, user)
-
+            if(!server) return // server not registered, ignore
+            if(reaction.message.id !== server.ruleAcceptMessage) return // wrong message, ignore
+            if(!(reaction.emoji.name === "✅")) return await remove(reaction, user)
             // Server is registered and emoji is correct, there should be no errors past this point
 
             // server is the row in the RulesForAll DB, guild is the corresponding row in the discord DB
