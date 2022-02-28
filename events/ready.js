@@ -9,7 +9,7 @@ module.exports = {
      * @param {Client} client 
      */
     run: (client) => {
-        console.log("I'm online!");
+        console.log("Bot online!");
         const presence = [
             { type: 'PLAYING', name: 'with pixelbot' },
             { type: 'LISTENING', name: 'the rules' }

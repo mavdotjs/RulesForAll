@@ -5,6 +5,8 @@ const intents = new Discord.Intents(32767);
 const client = new Discord.Client({
     intents
 });
+global.client = client // do not remove, required for API
+require('./api')
 
 const handler = new OPCommands(client, {
     commandsDir: "commands", // your commands' directory
