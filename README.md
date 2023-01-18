@@ -16,3 +16,9 @@ This project is currently dormant until I am allowed to access discord (personal
 * Bug fixes (i dont know what the bugs are yet tho)
 * New dev team
 * Moderation and appeals system based off of the rules
+
+Future commands:
+* `ban [user] [time] [rules]`: bans a user & record messages by that user
+* `register [channel] [role] [autorole?] [(optional) appealchannel]`: If appealchannel is empty appeals will be turned off and can only be re-enabled via dasboard
+* `appeal [reason]`: allows a user to appeal a ban (the bot doesnt technically ban the user in discord terms but puts them in a `RuFoAl-/purgatory` channel)
+* `dashboard`: sends the link to the dashboard
