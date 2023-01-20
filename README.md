@@ -12,7 +12,7 @@ all commands:
 This project is currently dormant until I am allowed to access discord (personal family problem), but when I come back:
 
 * Dashboard With SvelteKit
-* Switch to MongoDB
+* Dashboard on Vercel, Bot on Railway (or replit maybe), internal communication via Ably
 * Bug fixes (i dont know what the bugs are yet tho)
 * New dev team
 * Moderation and appeals system based off of the rules
